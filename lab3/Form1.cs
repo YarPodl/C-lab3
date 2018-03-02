@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace lab2
+namespace lab3
 {
     
     public partial class Form : System.Windows.Forms.Form

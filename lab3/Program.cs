@@ -1,9 +1,9 @@
-﻿using lab2;
+﻿using lab3;
 using System;
 using System.Windows.Forms;
 
 
-namespace lab2
+namespace lab3
 {
     static class Program
     {

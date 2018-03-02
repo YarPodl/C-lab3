@@ -1,4 +1,4 @@
-﻿namespace lab2
+﻿namespace lab3
 {
     partial class Form
     {
@@ -255,7 +255,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "Form";
-            this.Text = "Лабораторная работа №2. Статические члены класса";
+            this.Text = "Лабораторная работа №3.  Использование коллекций";
             this.Load += new System.EventHandler(this.Form_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
