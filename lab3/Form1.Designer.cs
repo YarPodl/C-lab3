@@ -32,7 +32,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxCount = new System.Windows.Forms.TextBox();
             this.labelPrint = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -49,6 +48,9 @@
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.buttonSave = new System.Windows.Forms.Button();
+            this.labelWarning = new System.Windows.Forms.Label();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -87,18 +89,9 @@
             this.labelPrint.Size = new System.Drawing.Size(0, 13);
             this.labelPrint.TabIndex = 3;
             // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(332, 111);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(125, 121);
-            this.listBox1.TabIndex = 4;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
-            // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(332, 243);
+            this.buttonAdd.Location = new System.Drawing.Point(143, 279);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(125, 23);
             this.buttonAdd.TabIndex = 5;
@@ -220,7 +213,7 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(133, 243);
+            this.buttonSave.Location = new System.Drawing.Point(23, 279);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 23);
             this.buttonSave.TabIndex = 20;
@@ -228,11 +221,42 @@
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
+            // labelWarning
+            // 
+            this.labelWarning.AutoSize = true;
+            this.labelWarning.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelWarning.ForeColor = System.Drawing.Color.Red;
+            this.labelWarning.Location = new System.Drawing.Point(19, 249);
+            this.labelWarning.Name = "labelWarning";
+            this.labelWarning.Size = new System.Drawing.Size(0, 20);
+            this.labelWarning.TabIndex = 21;
+            // 
+            // listView1
+            // 
+            this.listView1.Location = new System.Drawing.Point(332, 110);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(286, 97);
+            this.listView1.TabIndex = 22;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(332, 279);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(149, 23);
+            this.button1.TabIndex = 23;
+            this.button1.Text = "Посчитать время доступа";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(499, 301);
+            this.ClientSize = new System.Drawing.Size(630, 314);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.labelWarning);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.textBox7);
             this.Controls.Add(this.label9);
@@ -249,7 +273,6 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.buttonAdd);
-            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.labelPrint);
             this.Controls.Add(this.textBoxCount);
             this.Controls.Add(this.label2);
@@ -268,7 +291,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxCount;
         private System.Windows.Forms.Label labelPrint;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox1;
@@ -285,6 +307,9 @@
         private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button buttonSave;
+        private System.Windows.Forms.Label labelWarning;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.Button button1;
     }
 }
 
