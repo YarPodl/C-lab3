@@ -112,6 +112,7 @@ namespace lab3
 
         private void buttonCmpTime_Click(object sender, EventArgs e)
         {
+            listView1.Enabled = false;
             listView1.Items.Clear();
             Stopwatch sWatch = new Stopwatch();
             sWatch.Start();
@@ -127,7 +128,7 @@ namespace lab3
             sWatch.Restart();
             for (int i = 0; i < array.Length; i++)
             {
-                array[random.Next(array.Length)].countUsers = i;
+                array[random.Next(array.Length)].ToString();
             }
             sWatch.Stop();
             listView1.Items.Add("Время произвольного доступа к массиву: "
@@ -174,8 +175,8 @@ namespace lab3
             }
             else
             {
-                textBoxIndex.Focus();
-                textBoxIndex.BackColor = System.Drawing.Color.Red;
+                textBoxGener.Focus();
+                textBoxGener.BackColor = System.Drawing.Color.Red;
             }
             textBoxCount.Text = APS.count.ToString();
         }
@@ -204,6 +205,7 @@ namespace lab3
 
         private void buttonView_Click(object sender, EventArgs e)
         {
+            listView1.Enabled = true;
             listView1.Items.Clear();
             foreach (APS item in collect)
             {
@@ -218,6 +220,14 @@ namespace lab3
                 textBoxIndex.Text = listView1.SelectedIndices[0].ToString();
                 buttonSelect_Click(null, null);
             }
+            labelWarning.Text = "";
+            textBox1.BackColor = System.Drawing.Color.White;
+            textBox2.BackColor = System.Drawing.Color.White;
+            textBox3.BackColor = System.Drawing.Color.White;
+            textBox4.BackColor = System.Drawing.Color.White;
+            textBox5.BackColor = System.Drawing.Color.White;
+            textBox6.BackColor = System.Drawing.Color.White;
+            textBox7.BackColor = System.Drawing.Color.White;
         }
     }
     class RandomAcces
