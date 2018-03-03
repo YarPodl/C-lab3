@@ -20,7 +20,13 @@ namespace lab3
         {
 
             textBoxCount.Text = APS.count.ToString();
-
+            APS newAPS = new APS("Наша станция", 12345, "ул. Рождественского, 51", 1100, 35.50, "Стандартный", 900);
+            collect.Enqueue(newAPS);
+            Array.Resize(ref array, collect.Count);
+            array[collect.Count - 1] = newAPS;
+            textBoxIndex.Text = (collect.Count - 1).ToString();
+            buttonSelect_Click(null, null);
+            textBoxCount.Text = APS.count.ToString();
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
@@ -30,10 +36,10 @@ namespace lab3
             String s = inputBox.getString();    // Строка, введенная пользователем
             if (s != null)
             {
-                APS newAps = new APS(s);
-                collect.Enqueue(newAps);
+                APS newAPS = new APS(s);
+                collect.Enqueue(newAPS);
                 Array.Resize(ref array, collect.Count);
-                array[collect.Count - 1] = newAps;
+                array[collect.Count - 1] = newAPS;
                 textBoxIndex.Text = (collect.Count - 1).ToString();
                 buttonSelect_Click(null, null);
             }
@@ -201,7 +207,16 @@ namespace lab3
             listView1.Items.Clear();
             foreach (APS item in collect)
             {
-                listView1.Items.Add(item.ToStringFull());
+                listView1.Items.Add(item.ToString());
+            }
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listView1.SelectedIndices.Count > 0)
+            {
+                textBoxIndex.Text = listView1.SelectedIndices[0].ToString();
+                buttonSelect_Click(null, null);
             }
         }
     }
