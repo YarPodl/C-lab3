@@ -4,12 +4,38 @@ using System.Diagnostics;
 
 namespace lab3
 {
+    class RandomAcces
+    {
+        public static APS randomAcces(Queue<APS> collect, int index)
+        {
+            if (index == 0)
+            {
+                return collect.Peek();
+            }
+            //Queue<APS> tempQueue = new Queue<APS>(collect.Count);
+            for (int j = 0; j < index; j++)
+            {
+                collect.Enqueue(collect.Dequeue());
+            }
+            APS temp = collect.Dequeue();
+            collect.Enqueue(temp);
+            for (int j = index + 1; j < collect.Count; j++)
+            {
+                collect.Enqueue(collect.Dequeue());
+            }
+            //collect = tempQueue;
+            return temp;
+        }
+    }
     
+
+
     public partial class Form : System.Windows.Forms.Form
     {
         static int length = 10000;
         Queue<APS> collect = new Queue<APS>(length);
         APS[] array = new APS[length];
+        APS selectingObject;
         public Form()
         {
             InitializeComponent();
@@ -17,44 +43,29 @@ namespace lab3
 
         private void Form_Load(object sender, EventArgs e)
         {
-            for (int i = 0; i < length; i++)
-            {
-                APS newObject = new APS("name" + i.ToString(), i);
-                collect.Enqueue(newObject);
-                array[i] = newObject;
-            }
             textBoxCount.Text = APS.count.ToString();
+
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonAdd_Click(object sender, EventArgs e)
         {
             // Форма для ввода имени
             InputBox.InputBox inputBox = new InputBox.InputBox();
             String s = inputBox.getString();    // Строка, введенная пользователем
             if (s != null)
             {
+                APS newAps = new APS(s);
                 length++;
-                listBox1.Items.Add(new APS(s));
+                collect.Enqueue(newAps);
+                Array.Resize(ref array, length);
+                array[length - 1] = newAps;
             }
             textBoxCount.Text = APS.count.ToString();
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            APS selectObject = (APS)listBox1.Items[listBox1.SelectedIndex];
-            textBox1.Text = selectObject.name;
-            textBox2.Text = selectObject.number.ToString();
-            textBox3.Text = selectObject.addres;
-            textBox4.Text = selectObject.countUsers.ToString();
-            textBox5.Text = selectObject.usersPay.ToString();
-            textBox6.Text = selectObject.tarif;
-            textBox7.Text = selectObject.freeLines.ToString();
-        }
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            int selIndex = listBox1.SelectedIndex;
-            APS selectObject = (APS)listBox1.Items[selIndex];
             bool isErrors = false;
             int m1, m2, m4;
             int.TryParse(textBox2.Text, out m1);
@@ -105,19 +116,18 @@ namespace lab3
             }
             else
             {
-                selectObject.name = textBox1.Text;
-                selectObject.number = m1;
-                selectObject.addres = textBox3.Text;
-                selectObject.countUsers = m2;
-                selectObject.usersPay = m3;
-                selectObject.tarif = textBox6.Text;
-                selectObject.freeLines = m4;
+                selectingObject.name = textBox1.Text;
+                selectingObject.number = m1;
+                selectingObject.addres = textBox3.Text;
+                selectingObject.countUsers = m2;
+                selectingObject.usersPay = m3;
+                selectingObject.tarif = textBox6.Text;
+                selectingObject.freeLines = m4;
                 labelWarning.Text = "";
             }
-
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void buttonCmpTime_Click(object sender, EventArgs e)
         {
             listView1.Items.Clear();
             Stopwatch sWatch = new Stopwatch();
@@ -172,6 +182,40 @@ namespace lab3
             sWatch.Stop();
             listView1.Items.Add("Время произвольного доступа к очереди: "
                 + sWatch.ElapsedTicks);
+        }
+
+        private void buttonGener_Click(object sender, EventArgs e)
+        {
+
+            for (int i = 0; i < length; i++)
+            {
+                APS newObject = new APS("name" + i.ToString(), i);
+                collect.Enqueue(newObject);
+                array[i] = newObject;
+            }
+            textBoxCount.Text = APS.count.ToString();
+        }
+
+        private void buttonSelect_Click(object sender, EventArgs e)
+        {
+            int index;
+            if (int.TryParse(textBoxIndex.Text, out index) && (index >= 0) && (index < length))
+            {
+                textBoxIndex.BackColor = System.Drawing.Color.White;
+                selectingObject = RandomAcces.randomAcces(collect, index);
+                textBox1.Text = selectingObject.name;
+                textBox2.Text = selectingObject.number.ToString();
+                textBox3.Text = selectingObject.addres;
+                textBox4.Text = selectingObject.countUsers.ToString();
+                textBox5.Text = selectingObject.usersPay.ToString();
+                textBox6.Text = selectingObject.tarif;
+                textBox7.Text = selectingObject.freeLines.ToString();
+            }
+            else
+            {
+                textBoxIndex.Focus();
+                textBoxIndex.BackColor = System.Drawing.Color.Red;
+            }
         }
     }
 }
