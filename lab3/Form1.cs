@@ -4,37 +4,12 @@ using System.Diagnostics;
 
 namespace lab3
 {
-    class RandomAcces
-    {
-        public static APS randomAcces(Queue<APS> collect, int index)
-        {
-            if (index == 0)
-            {
-                return collect.Peek();
-            }
-            //Queue<APS> tempQueue = new Queue<APS>(collect.Count);
-            for (int j = 0; j < index; j++)
-            {
-                collect.Enqueue(collect.Dequeue());
-            }
-            APS temp = collect.Dequeue();
-            collect.Enqueue(temp);
-            for (int j = index + 1; j < collect.Count; j++)
-            {
-                collect.Enqueue(collect.Dequeue());
-            }
-            //collect = tempQueue;
-            return temp;
-        }
-    }
-    
-
+   
 
     public partial class Form : System.Windows.Forms.Form
     {
-        static int length = 10000;
-        Queue<APS> collect = new Queue<APS>(length);
-        APS[] array = new APS[length];
+        Queue<APS> collect = new Queue<APS>();
+        APS[] array = new APS[0];
         APS selectingObject;
         public Form()
         {
@@ -43,6 +18,7 @@ namespace lab3
 
         private void Form_Load(object sender, EventArgs e)
         {
+
             textBoxCount.Text = APS.count.ToString();
 
         }
@@ -55,10 +31,11 @@ namespace lab3
             if (s != null)
             {
                 APS newAps = new APS(s);
-                length++;
                 collect.Enqueue(newAps);
-                Array.Resize(ref array, length);
-                array[length - 1] = newAps;
+                Array.Resize(ref array, collect.Count);
+                array[collect.Count - 1] = newAps;
+                textBoxIndex.Text = (collect.Count - 1).ToString();
+                buttonSelect_Click(null, null);
             }
             textBoxCount.Text = APS.count.ToString();
         }
@@ -132,7 +109,7 @@ namespace lab3
             listView1.Items.Clear();
             Stopwatch sWatch = new Stopwatch();
             sWatch.Start();
-            for (int i = 0; i < length; i++)
+            for (int i = 0; i < array.Length; i++)
             {
                 array[i].freeLines = i;
             }
@@ -142,16 +119,16 @@ namespace lab3
 
             Random random = new Random();
             sWatch.Restart();
-            for (int i = 0; i < length; i++)
+            for (int i = 0; i < array.Length; i++)
             {
-                array[random.Next(length)].countUsers = i;
+                array[random.Next(array.Length)].countUsers = i;
             }
             sWatch.Stop();
             listView1.Items.Add("Время произвольного доступа к массиву: "
                 + sWatch.ElapsedTicks);
 
             sWatch.Restart();
-            for (int i = 0; i < length; i++)
+            for (int i = 0; i < collect.Count; i++)
             {
                 APS temp = collect.Dequeue();
                 temp.tarif = "Тариф";
@@ -161,23 +138,13 @@ namespace lab3
             listView1.Items.Add("Время последовательного доступа к очереди: "
                 + sWatch.ElapsedTicks);
 
-            Queue<APS> tempQueue = new Queue<APS>(length);
+            //Queue<APS> tempQueue = new Queue<APS>(collect.Count);
             sWatch.Restart();
-            for (int i = 0; i < length; i++)
+            for (int i = 0; i < collect.Count; i++)
             {
-                int n = random.Next(length);
-                for (int j = 0; j < n; j++)
-                {
-                    tempQueue.Enqueue(collect.Dequeue());
-                }
-                APS temp = collect.Dequeue();
-                temp.usersPay = i;
-                tempQueue.Enqueue(temp);
-                for (int j = n + 1; j < length; j++)
-                {
-                    tempQueue.Enqueue(collect.Dequeue());
-                }
-                collect = tempQueue;
+                int n = random.Next(collect.Count);
+                RandomAcces.randomAcces(collect, n);
+                //collect = tempQueue;
             }
             sWatch.Stop();
             listView1.Items.Add("Время произвольного доступа к очереди: "
@@ -186,12 +153,23 @@ namespace lab3
 
         private void buttonGener_Click(object sender, EventArgs e)
         {
-
-            for (int i = 0; i < length; i++)
+            int count;
+            if (int.TryParse(textBoxGener.Text, out count) && (count >= 0) && (count + collect.Count < int.MaxValue - 100))
             {
-                APS newObject = new APS("name" + i.ToString(), i);
-                collect.Enqueue(newObject);
-                array[i] = newObject;
+                int newCount = collect.Count + count;
+                textBoxIndex.BackColor = System.Drawing.Color.White;
+                Array.Resize(ref array, newCount);
+                for (int i = collect.Count; i < newCount; i++)
+                {
+                    APS newObject = new APS("name" + i.ToString(), i);
+                    collect.Enqueue(newObject);
+                    array[i] = newObject;
+                }
+            }
+            else
+            {
+                textBoxIndex.Focus();
+                textBoxIndex.BackColor = System.Drawing.Color.Red;
             }
             textBoxCount.Text = APS.count.ToString();
         }
@@ -199,7 +177,7 @@ namespace lab3
         private void buttonSelect_Click(object sender, EventArgs e)
         {
             int index;
-            if (int.TryParse(textBoxIndex.Text, out index) && (index >= 0) && (index < length))
+            if (int.TryParse(textBoxIndex.Text, out index) && (index >= 0) && (index < collect.Count))
             {
                 textBoxIndex.BackColor = System.Drawing.Color.White;
                 selectingObject = RandomAcces.randomAcces(collect, index);
@@ -216,6 +194,38 @@ namespace lab3
                 textBoxIndex.Focus();
                 textBoxIndex.BackColor = System.Drawing.Color.Red;
             }
+        }
+
+        private void buttonView_Click(object sender, EventArgs e)
+        {
+            listView1.Items.Clear();
+            foreach (APS item in collect)
+            {
+                listView1.Items.Add(item.ToStringFull());
+            }
+        }
+    }
+    class RandomAcces
+    {
+        public static APS randomAcces(Queue<APS> collect, int index)
+        {
+            if (index == 0)
+            {
+                return collect.Peek();
+            }
+            //Queue<APS> tempQueue = new Queue<APS>(collect.Count);
+            for (int j = 0; j < index; j++)
+            {
+                collect.Enqueue(collect.Dequeue());
+            }
+            APS temp = collect.Dequeue();
+            collect.Enqueue(temp);
+            for (int j = index + 1; j < collect.Count; j++)
+            {
+                collect.Enqueue(collect.Dequeue());
+            }
+            //collect = tempQueue;
+            return temp;
         }
     }
 }

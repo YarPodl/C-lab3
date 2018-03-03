@@ -56,9 +56,10 @@
             this.buttonGener = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.textBoxIndex = new System.Windows.Forms.TextBox();
             this.buttonSelect = new System.Windows.Forms.Button();
+            this.textBoxIndex = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.buttonView = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -248,6 +249,7 @@
             this.listView1.Size = new System.Drawing.Size(298, 97);
             this.listView1.TabIndex = 22;
             this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.List;
             // 
             // buttonCmpTime
             // 
@@ -265,7 +267,7 @@
             this.textBoxGener.Name = "textBoxGener";
             this.textBoxGener.Size = new System.Drawing.Size(97, 20);
             this.textBoxGener.TabIndex = 24;
-            this.textBoxGener.Text = "10000";
+            this.textBoxGener.Text = "100";
             // 
             // label11
             // 
@@ -310,23 +312,6 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Выбор элемента";
             // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(10, 23);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(45, 13);
-            this.label10.TabIndex = 0;
-            this.label10.Text = "Индекс";
-            // 
-            // textBoxIndex
-            // 
-            this.textBoxIndex.Location = new System.Drawing.Point(61, 20);
-            this.textBoxIndex.Name = "textBoxIndex";
-            this.textBoxIndex.Size = new System.Drawing.Size(100, 20);
-            this.textBoxIndex.TabIndex = 1;
-            this.textBoxIndex.Text = "0";
-            // 
             // buttonSelect
             // 
             this.buttonSelect.Location = new System.Drawing.Point(47, 51);
@@ -337,11 +322,39 @@
             this.buttonSelect.UseVisualStyleBackColor = true;
             this.buttonSelect.Click += new System.EventHandler(this.buttonSelect_Click);
             // 
+            // textBoxIndex
+            // 
+            this.textBoxIndex.Location = new System.Drawing.Point(61, 20);
+            this.textBoxIndex.Name = "textBoxIndex";
+            this.textBoxIndex.Size = new System.Drawing.Size(100, 20);
+            this.textBoxIndex.TabIndex = 1;
+            this.textBoxIndex.Text = "0";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(10, 23);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(45, 13);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "Индекс";
+            // 
+            // buttonView
+            // 
+            this.buttonView.Location = new System.Drawing.Point(490, 217);
+            this.buttonView.Name = "buttonView";
+            this.buttonView.Size = new System.Drawing.Size(96, 23);
+            this.buttonView.TabIndex = 31;
+            this.buttonView.Text = "Показать все";
+            this.buttonView.UseVisualStyleBackColor = true;
+            this.buttonView.Click += new System.EventHandler(this.buttonView_Click);
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(654, 373);
+            this.Controls.Add(this.buttonView);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.buttonCmpTime);
@@ -368,6 +381,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "Form";
+            this.Text = "Лабораторная работа №3.  Использование коллекций";
             this.Load += new System.EventHandler(this.Form_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -411,6 +425,7 @@
         private System.Windows.Forms.Button buttonSelect;
         private System.Windows.Forms.TextBox textBoxIndex;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button buttonView;
     }
 }
 
